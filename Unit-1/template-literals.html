@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Template Literals</title>
+	</head>
+	<body>
+		<script>
+			// This is an uggly way to format a multi-line string (Without template literals).
+			// and applying the multiline with a \n
+			const greeting = "Hi,\n my name is Edgar";
+			console.log(greeting);
+			// Multi-line with template literals, natural next line without \n.
+			// Using Backticks ``.
+			// Easy to read.
+			const greetingWithTemplateLiterals = `Hi,
+            my name is Edgar`;
+			console.log(greetingWithTemplateLiterals);
+
+			// Expressions, concatenation without template literals.
+			// Hard to read, hard to maintain.
+			const name = "edgar";
+			const greetingExpresion = "Hi,\n" + "my name is " + name;
+			console.log(greetingExpresion);
+			// Expression with Template Literals.
+			// Easy to read. Easy to maintain.
+			const nameWithTemplateLiterals = "Edgar";
+			console.log(`Hi,
+            My name is ${nameWithTemplateLiterals}`);
+
+            // A value is also a expression.
+            console.log(`My age is ${32}`);
+            
+            // A string is also a expression, boolean value also.
+            console.log(`This is ${"a template literal."}`);
+            
+            // Since X is not set as variable or const, browser set inside WINDOW,
+            // so now we have windows.x and that is an expression.
+            console.log(`My name is ${x = "Edgar"}`);
+            
+            // This will not return the string 'Edgar' since the function has not been called
+            // so, this will return the function perse, at this point an UNDEFINED, so in console
+            // we will see it as string "My name is function name() {return 'Edgar'}"
+            console.log(`My name is ${function name() {return 'Edgar'}}`);
+
+            // This will not work since is creating the same call as before but bigger, this will
+            // will return a SyntaxError.
+            console.log(`My name is ${function name() {return 'Edgar'};}`);
+
+            // This also will not work, now we are trying to call the function with "name()", 
+            // but this only is calling the same failure function as before.
+            console.log(`My name is ${function name() {return 'Edgar'} name()}`);
+
+            // This will work since we are auto executing the function. JS Trick.
+            console.log(`My name is ${(function name() {return 'Edgar'})()}`);
+            // Since we are auto-executing the function, we can remove the function name.
+            console.log(`My name is ${(function () {return 'Edgar A'})()}`);
+            // Also we can use the Arrow function.
+            console.log(`My name is ${( () => {return 'Edgar Arrow'})()}`);
+            // This will not work since this is a control function not an expression.
+            console.log(`My name is ${ if (true) {console.log('Ed')}}`);
+
+            // This will work, using a Ternary we can convert a control function to a expression.
+            // In React this used in list.
+            console.log(`My name is ${true && 'Ed Ternary'}`);
+            console.log(`My name is ${false ? 'Ternary True' : 'Ternary False'}`);
+
+            // React Example.
+            // Iteraing a object list inside a component. Why we not use FOR, because we only accept expressions.
+            // We have the list values, map it, print each element.
+            console.log(`${['a','b'].map(letter => `${letter}-styled`) }`);
+		</script>
+	</body>
+</html>
