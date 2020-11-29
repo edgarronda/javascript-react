@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tagged Templates</title>
+        <style>
+            body{
+                display: flex;
+                margin: 0;
+                height: 100vh;
+                justify-content: center;
+                align-items: center;
+                font-family: system-ui;
+                background-color: white;
+                color: #00213c;
+                font-size: 2em;
+                text-shadow: 1px 1px rgba(0,0,0,.5);
+            }
+
+            strong{
+                color: #fff;
+                padding: .15em .4em;
+                background: #ff3b00;
+                border-radius: 20px;
+                border: 2px solid #00213c;
+            }
+        </style>
+	</head>
+	<body>
+		<script>
+			/*
+                Tagged Templates are the basics of Styled Components re-implementation
+                We will go in a deep understanding of tagged templates implementation.
+                With Tagged Templates we will be able to customize UI with dynamic content.
+            */
+
+			// Basic Taggged Template call.
+			// Remember the Tagged Template call.
+			function taggedTemplateBasicCall() {
+				console.log("Taggged Template Basic call");
+			}
+			taggedTemplateBasicCall``; //Taggged Template call.
+
+			// Taggged Template call with parametters
+			//This call receive strings as default value, doesn't matter if you send these or not.
+			function taggedTemplateCallWithParams(strings) {
+				console.log(strings);
+			}
+			taggedTemplateCallWithParams``; //Tagged Template call.
+
+			// Taggged Template call with parametters 2
+			// This will receive 2 parameters, values are part of the second position, the 3rd
+			// parameter will be not received, for this one we will need to have a second param.
+			function taggedTemplateCallWithParams2(strings, values) {
+				console.log(strings, values);
+			}
+			taggedTemplateCallWithParams2`hello ${"world"} ${"!"}`; //Taggged Template call.
+
+			// Taggged Template call with parametters 3
+			// Now, we read the 3rd param, but what if we need to receive more than 3params.
+			function taggedTemplateCallWithParams3(strings, param1, param2) {
+				console.log(strings, param1, param2);
+			}
+			taggedTemplateCallWithParams3`hello ${"world"} ${"!"}`; //Taggged Template call.
+
+			// With Dynamic parametters.
+			// Fixed with a rest operator, now we can receive multiple params.
+			//
+			function taggedTemplateDynamic(strings, ...dynamicValues) {
+				console.log(strings, dynamicValues);
+			}
+			taggedTemplateDynamic`hola ${"mundo"} ${"!"}`; //Taggged Template call.
+
+
+			// Real life Tagged Templates implementation with dynamic params.
+			function taggedTemplateImplementation(strings, ...dynamicValues) {
+				let newContent = "";
+				// We will read all array positions.
+				// We will read an undefined at the end, we will remove with a validation inside the iteration.
+				strings.forEach((string, index) => {
+					const strong = dynamicValues[index] ? `<strong> ${dynamicValues[index]}</strong>` : "";
+					newContent += `${string} ${strong}`;
+				});
+
+                // Returning in a tagged template.
+				return `<p>${newContent}</p>`;
+			}
+
+            // Calling the tagged template.
+			const message = taggedTemplateImplementation`El ${"trabajo duro"} supera al ${"talento natural"}`;
+
+            // Drawing in website.
+			document.body.innerHTML = message;
+		</script>
+	</body>
+</html>
